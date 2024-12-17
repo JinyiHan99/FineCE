@@ -1,11 +1,20 @@
-# UCE: Unified Confidence Estimation Throughout the Generation of LLMs
+# Mind the Generation Process: Fine-grained Confidence Estimation Throughout the Generation of LLMs
 
-Unified Condidence Esitmation (UCE) [[pdf]](./image/UCE.pdf) provides the accurate and continuous confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence.
+FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task.
+
+<div style="text-align: center;">
+    <img src="image/intro.jpg" alt="表格示例" width = 700/>
+    <p>The difference between our proposed FineCE and existing confidence estimation method. (Top): LLMs either respond to queries within their knowledge scope or refuse queries beyond their capabilities. (Middle): The model provides a confidence score alongside an answer. (Bottom): Our proposed method FineCE provides the fine-grained confidence scores for any given text sequence during the generation process.</p>
+</div>
 
 * we develop a pipeline to construct training data to capture the inherent certainty of LLMs, and design data formats for three different scenarios to improve the generalization capability of LLM confidence estimation.
 * we propose the Reverse Confidence Integration strategy, which integrates confidence scores from subsequent text sequences to provide a more accurate and holistic confidence estimation for the current text sequence.
 
-![1724901103026](image/README/1724901103026.png)
+
+<div style="text-align: center;">
+    <img src="image/table2.jpg" alt="表格示例" width = 800/>
+    <p>The process of constructing training data for confidence estimation.</p>
+</div>
 
 # Training Data
 
