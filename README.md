@@ -4,7 +4,7 @@ FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained 
 
 <div style="text-align: center;">
     <img src="image/intro.jpg" alt="表格示例" width = 400/>
-    <p>The difference between our proposed FineCE and existing confidence estimation method. (Top): LLMs either respond to queries within their knowledge scope or refuse queries beyond their capabilities. (Middle): The model provides a confidence score alongside an answer. (Bottom): Our proposed method FineCE provides the fine-grained confidence scores for any given text sequence during the generation process.</p>
+    <p style="text-align: center;">Fig1. The difference between our proposed FineCE and existing confidence estimation method. (Top): LLMs either respond to queries within their knowledge scope or refuse queries beyond their capabilities. (Middle): The model provides a confidence score alongside an answer. (Bottom): Our proposed method FineCE provides the fine-grained confidence scores for any given text sequence during the generation process.</p>
 </div>
 
 * we develop a pipeline to construct training data to capture the inherent certainty of LLMs, and design data formats for three different scenarios to improve the generalization capability of LLM confidence estimation.
@@ -13,7 +13,7 @@ FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained 
 
 <div style="text-align: center;">
     <img src="image/Table2.jpg" alt="表格示例" width = 800/>
-    <p>The process of constructing training data for confidence estimation.</p>
+    <p style="text-align: center;">Fig2. The process of constructing training data for confidence estimation.</p>
 </div>
 
 # Training Data
@@ -25,7 +25,7 @@ FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained 
   * Next, you can construt the  confidence estimation training data on other tasks or using other base models using:
 
     ```
-    cd /methods/UCE/construct_data
+    cd /methods/FinCE/construct_data
     python pipeline.py \
     	--model_path formatted_model_path \
     	--data_path raw_data_path \
@@ -148,10 +148,10 @@ We demonstrate that **base models provide the accurate confidence estimates for 
 
 <div style="text-align: center;">
     <img src="image/res1.jpg" alt="" width = 700/>
-    <p>Confidence estimation results throughout the generation process: the first paragraph, preceding $z-1$ paragraphs and overall average confidence scores.</p>
+    <p style="text-align: center;">Table1. Confidence estimation results throughout the generation process: the first paragraph, preceding $z-1$ paragraphs and overall average confidence scores.</p>
 </div>
 
 <div style="text-align: center;">
     <img src="image/res2.jpg" alt="" width = 700/>
-    <p>The confidence estimation results across baselines for question-oriented and outcome-oriented tasks.</p>
+    <p style="text-align: center;">Table2. The confidence estimation results across baselines for question-oriented and outcome-oriented tasks.</p>
 </div>
