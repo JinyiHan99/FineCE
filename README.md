@@ -3,7 +3,7 @@
 FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task.
 
 <div style="text-align: center;">
-    <img src="image/intro.jpg" alt="表格示例" width = 700/>
+    <img src="image/intro.jpg" alt="表格示例" width = 400/>
     <p>The difference between our proposed FineCE and existing confidence estimation method. (Top): LLMs either respond to queries within their knowledge scope or refuse queries beyond their capabilities. (Middle): The model provides a confidence score alongside an answer. (Bottom): Our proposed method FineCE provides the fine-grained confidence scores for any given text sequence during the generation process.</p>
 </div>
 
@@ -12,16 +12,16 @@ FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained 
 
 
 <div style="text-align: center;">
-    <img src="image/table2.jpg" alt="表格示例" width = 800/>
+    <img src="image/Table2.jpg" alt="表格示例" width = 800/>
     <p>The process of constructing training data for confidence estimation.</p>
 </div>
 
 # Training Data
 
-* we provide the confidence estimation training data on the GSM8K, CSQA and TrivalQA dataset, you can find them on the fold `/data/UCE/XX/confData`. We provide two files on each dataset using two different base models. For example, The file `LlaMA-7B.json` is from LLama2-7b.
+* we provide the confidence estimation training data on the GSM8K, CSQA and TrivalQA dataset, you can find them on the fold `/data/FineCE/XX/confData`. We provide two files on each dataset using two different base models. For example, The file `LlaMA-7B.json` is from LLama2-7b.
 * If you want to construct the confidence estimation training data using other base models.  The pipelines is following:
 
-  * Before constructing theconfidence estimation training data, you'd better use format data to regularize the format of the model's answer. We provide the formatted data on three dataset, and you can find them on the fold `/data/UCE/XX/formatData`.  Then you can employ instruction training using <instruction, question, formatted_response> to obtain the formatted model checkpoints. For ift, we recommend you to use the  [llama-factory](l)
+  * Before constructing theconfidence estimation training data, you'd better use format data to regularize the format of the model's answer. We provide the formatted data on three dataset, and you can find them on the fold `/data/FineCE/XX/formatData`.  Then you can employ instruction training using <instruction, question, formatted_response> to obtain the formatted model checkpoints. For ift, we recommend you to use the  [llama-factory](l)
   * Next, you can construt the  confidence estimation training data on other tasks or using other base models using:
 
     ```
@@ -43,7 +43,7 @@ We have tried two training skills: ift and multi-class, and you can find the det
 After training, please run the following code to obtain the response or the confidence estimate:
 
 ```
-cd /methods/UCE/infer
+cd /methods/FineCE/infer
 python infer_answer_and_conf.py \
     --model_path model_ckp \
     --data_path test_data_path \
@@ -144,8 +144,14 @@ We also provide the code of several popular confidence estimation methods. you c
 
 # Results
 
-We demonstrate that **base models provide the accurate confidence estimates for any given text sequence on three datasets after using UCE**. The overall results are shown in Table1 and Table2. The results in these two tables are the average values. Particularly, **our method consistently outperforms all baselines in terms of ECE and AUROC, and shows excellent calibration capability across all datasets.** 
+We demonstrate that **base models provide the accurate confidence estimates for any given text sequence on three datasets after using FineCE**. The overall results are shown in Table1 and Table2. The results in these two tables are the average values. Particularly, **our method consistently outperforms all baselines in terms of ECE and AUROC, and shows excellent calibration capability across all datasets.** 
 
-![Table1](image/Table1.jpg)
-![Table2](image/Table2.jpg)
+<div style="text-align: center;">
+    <img src="image/res1.jpg" alt="" width = 700/>
+    <p>Confidence estimation results throughout the generation process: the first paragraph, preceding $z-1$ paragraphs and overall average confidence scores.</p>
+</div>
 
+<div style="text-align: center;">
+    <img src="image/res2.jpg" alt="" width = 700/>
+    <p>The confidence estimation results across baselines for question-oriented and outcome-oriented tasks.</p>
+</div>
