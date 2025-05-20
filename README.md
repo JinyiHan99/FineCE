@@ -1,14 +1,25 @@
 # Mind the Generation Process: Fine-grained Confidence Estimation Throughout the Generation of LLMs
 
-FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task.
+FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task as shown in Figure 1.
 
-<div style="text-align: center;">
-    <img src="image/intro.jpg" alt="表格示例" width = 400/>
-    <p style="text-align: center;">Fig1. The difference between our proposed FineCE and existing confidence estimation method. (Top): LLMs either respond to queries within their knowledge scope or refuse queries beyond their capabilities. (Middle): The model provides a confidence score alongside an answer. (Bottom): Our proposed method FineCE provides the fine-grained confidence scores for any given text sequence during the generation process.</p>
-</div>
+<!-- <div style="text-align: center;">
+    <img src="./image/intro_0519.pdf" alt="intro" width = 400/>
+    <p style="text-align: center;">The difference between our proposed FineCE and existing confidence estimation methods. \textbf{(a):} LLMs either generate an answer when the query is within their knowledge scope or refuse to answer if it falls beyond their capabilities. \textbf{(b):} The model assigns a single confidence score after the entire answer is generated. \textbf{(c):} Our proposed method, FineCE, provides the fine-grained confidence scores for any given text sequence throughout the generation process.</p>
+</div> -->
+<figure style="text-align: center;">
+  <img src="./image/intro_0519.jpeg" width="400" alt="FineCE vs. existing confidence estimation methods" />
+  <figcaption>
+    <strong>Figure 1.</strong> The difference between our proposed FineCE and existing confidence estimation methods. 
+    <em>(a)</em> LLMs either generate an answer when the query is within their knowledge scope or refuse to answer if it falls beyond their capabilities. 
+    <em>(b)</em> The model assigns a single confidence score after the entire answer is generated. 
+    <em>(c)</em> Our proposed method, FineCE, provides fine-grained confidence scores for any given text sequence throughout the generation process.
+  </figcaption>
+</figure>
 
-* we develop a pipeline to construct training data to capture the inherent certainty of LLMs, and design data formats for three different scenarios to improve the generalization capability of LLM confidence estimation.
-* we propose the Reverse Confidence Integration strategy, which integrates confidence scores from subsequent text sequences to provide a more accurate and holistic confidence estimation for the current text sequence.
+
+* We establish a complete pipeline for constructing high-quality confidence estimation data.
+* We propose BCI, a novel backward confidence integration strategy that enhances current confidence estimation by leveraging future text. 
+* We develop three basic strategies to identify optimal estimation positions within the generation process.
 
 
 <div style="text-align: center;">
