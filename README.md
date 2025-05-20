@@ -1,20 +1,11 @@
-# Mind the Generation Process: Fine-grained Confidence Estimation Throughout the Generation of LLMs
+# Mind the Generation Process: Fine-Grained Confidence Estimation During LLM Generation
 
 FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task as shown in Figure 1.
 
-<!-- <div style="text-align: center;">
-    <img src="./image/intro_0519.pdf" alt="intro" width = 400/>
-    <p style="text-align: center;">The difference between our proposed FineCE and existing confidence estimation methods. \textbf{(a):} LLMs either generate an answer when the query is within their knowledge scope or refuse to answer if it falls beyond their capabilities. \textbf{(b):} The model assigns a single confidence score after the entire answer is generated. \textbf{(c):} Our proposed method, FineCE, provides the fine-grained confidence scores for any given text sequence throughout the generation process.</p>
-</div> -->
-<figure style="text-align: center;">
-  <img src="./image/intro_0519.jpeg" width="400" alt="FineCE vs. existing confidence estimation methods" />
-  <figcaption>
-    <strong>Figure 1.</strong> The difference between our proposed FineCE and existing confidence estimation methods. 
-    <em>(a)</em> LLMs either generate an answer when the query is within their knowledge scope or refuse to answer if it falls beyond their capabilities. 
-    <em>(b)</em> The model assigns a single confidence score after the entire answer is generated. 
-    <em>(c)</em> Our proposed method, FineCE, provides fine-grained confidence scores for any given text sequence throughout the generation process.
-  </figcaption>
-</figure>
+<div style="text-align: center;">
+    <img src="./image/intro.jpeg" alt="intro" width = 400/>
+    <p style="text-align: center;"><em>Figure 1:</em> The difference between our proposed FineCE and existing confidence estimation methods.<br></p>
+</div>
 
 
 * We establish a complete pipeline for constructing high-quality confidence estimation data.
@@ -23,8 +14,8 @@ FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained 
 
 
 <div style="text-align: center;">
-    <img src="image/Table2.jpg" alt="表格示例" width = 800/>
-    <p style="text-align: center;">Fig2. The process of constructing training data for confidence estimation.</p>
+    <img src="image/pipeline.jpeg" alt="pipeline" width = 800/>
+    <p style="text-align: center;"><em>Figure 2:</em>The construction process of the training dataset.</p>
 </div>
 
 # Training Data
@@ -158,11 +149,9 @@ We also provide the code of several popular confidence estimation methods. you c
 We demonstrate that **base models provide the accurate confidence estimates for any given text sequence on three datasets after using FineCE**. The overall results are shown in Table1 and Table2. The results in these two tables are the average values. Particularly, **our method consistently outperforms all baselines in terms of ECE and AUROC, and shows excellent calibration capability across all datasets.** 
 
 <div style="text-align: center;">
-    <img src="image/res1.jpg" alt="" width = 700/>
-    <p style="text-align: center;">Table1. Confidence estimation results throughout the generation process: the first paragraph, preceding $z-1$ paragraphs and overall average confidence scores.</p>
+    <img src="image/table1.png" alt="" width = 700/>
 </div>
 
 <div style="text-align: center;">
-    <img src="image/res2.jpg" alt="" width = 700/>
-    <p style="text-align: center;">Table2. The confidence estimation results across baselines for question-oriented and outcome-oriented tasks.</p>
+    <img src="image/table2.png" alt="" width = 700/>
 </div>
