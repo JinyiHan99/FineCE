@@ -3,7 +3,7 @@
 FineCE [[pdf]](./image/FineCE_final.pdf) provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. The difference between FineCE and existing confidene estimation task as shown in Figure 1.
 
 <div style="text-align: center;">
-    <img src="./image/intro.jpeg" alt="intro" width = 400/>
+    <img src="./image/intro.jpeg" alt="intro" width = 600/>
     <p style="text-align: center;"><em>Figure 1:</em> The difference between our proposed FineCE and existing confidence estimation methods.<br></p>
 </div>
 
