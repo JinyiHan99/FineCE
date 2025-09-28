@@ -13,7 +13,7 @@ device = torch.device("cuda")
 
 import sys
 
-sys.path.append("/data1/hhx/public/github")
+sys.path.append("./")
 from utils import read_json, save_list_to_json, qwen_wrap_overall_instruction_prompt, \
     llama2_wrap_overall_instruction_prompt
 from config import prompt_templates
@@ -154,15 +154,12 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--model_path", type=str, default="/data1/hhx/ckp/conf/qwen7b-qwen7b-full/checkpoint-1000",
-                        help="the name of model")
+    parser.add_argument("--model_path", type=str,help="the name of model")
     parser.add_argument("--model_name", type=str, default="qwen",
                         help="the name of model, [qwen, llama2], you can set other models")
     parser.add_argument("--lora_name", type=str, default="")
-    parser.add_argument("--dataPath", type=str,
-                        default="/data1/hhx/public/confidence/LLMConfidence/methods/ours/data/test/CSQA_result_808.json")
-    parser.add_argument("--savePath", type=str,
-                        default="/data1/hhx/public/confidence/LLMConfidence/methods/ours/data/test/CSQA_result_808_with_conf.json")
+    parser.add_argument("--dataPath", type=str)
+    parser.add_argument("--savePath", type=str)
     parser.add_argument("--response_mode", type=str, default="conf", help="[normal, conf]")
     args = parser.parse_args()
     main(args)

@@ -15,7 +15,7 @@ import pickle
 import argparse
 import torch.nn as nn
 import torch.nn.functional as F
-sys.path.append("/data1/hhx/public/github/Unify-Confidence-Estimation")
+sys.path.append("./")
 from utils_CSQA import *
 device = torch.device("cuda")
 
@@ -142,12 +142,11 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="/data/dell/lty/ckp/llama_7b_ComQA_Splite_Conf/llama_7b_ComQA_Splite_Conf_epoch2",
+    parser.add_argument("--model_name", type=str,
                         help="the name of model")
     parser.add_argument("--lora_weights", type=str, default="",
                         help="if you use lora model, please fill this value, or it is empty")
-    parser.add_argument("--dataPath", type=str,
-                        default="/data/dell/lty/UCE/test/test.json")
-    parser.add_argument("--savePath", type=str, default="/data/dell/lty/UCE/test/test_LECO2.json")
+    parser.add_argument("--dataPath", type=str)
+    parser.add_argument("--savePath", type=str)
     args = parser.parse_args()
     main(args)

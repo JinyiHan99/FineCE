@@ -9,7 +9,6 @@ import random
 import pickle
 import argparse
 
-sys.path.append("/data1/hhx/public/github/Unify-Confidence-Estimation")
 from utils_CSQA import *
 from config import prompt_templates
 os.environ['CUDA_VISIBLE_DEVICES'] = '4'
@@ -89,10 +88,9 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str,
-                        default="/data/cache/huggingface/hub/models--meta-llama--Llama-2-13b-chat-hf/snapshots/717c4c9e612e583993155c2b586332e301b61f55",
                         help="the name of model")
-    parser.add_argument("--dataPath", type=str, default="/data/dell/lty/UCE/test/test.json")
-    parser.add_argument("--savePath", type=str, default="/data/dell/lty/UCE/test/test_Verb2.json", help=" save as json ")
+    parser.add_argument("--dataPath", type=str)
+    parser.add_argument("--savePath", type=str, help=" save as json ")
     parser.add_argument("--sample_num", type=int, default=1, help="for a question, the number of answer.")
     parser.add_argument("--T", type=int, default=1, help="temperature")
     parser.add_argument("--size", type=int, default=4, help="number of data inference in the same batch")

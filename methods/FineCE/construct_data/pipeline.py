@@ -6,7 +6,7 @@ from tqdm import tqdm
 import random
 import argparse
 from vllm import LLM, SamplingParams
-sys.path.append("/data1/hhx/public/github/Unify-Confidence-Estimation")
+sys.path.append("./")
 os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 device = torch.device("cuda")
 
@@ -39,10 +39,10 @@ def main(args):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="/data/dell/lty/ckp/llama_7b_Gsm8k_ToDo_Base/llama_7b_Gsm8k_ToDo_Base_epoch3",
+    parser.add_argument("--model_name", type=str, default="your format ckp",
                         help="the name of model")
-    parser.add_argument("--dataPath", type=str, default="/data/dell/lty/UCE/test/1.json")
-    parser.add_argument("--savePath", type=str, default="/data/dell/lty/UCE/test/2.json")
+    parser.add_argument("--dataPath", type=str, default="/UCE/test1.json")
+    parser.add_argument("--savePath", type=str, default="test_eval.json")
     parser.add_argument("--sample_num", type=int, default=30, help = "for a question, the number of answer.")
     parser.add_argument("--dataSet", type=str, default="GSM8K", help="[CSQA, GSM8K, TriviaQA]")
     parser.add_argument("--T", type=int, default=1, help="temperature")

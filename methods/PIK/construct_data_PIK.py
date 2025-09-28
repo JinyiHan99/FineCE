@@ -9,7 +9,7 @@ import argparse
 import pickle
 from vllm import LLM, SamplingParams
 
-sys.path.append("/data1/hhx/public/github/Unify-Confidence-Estimation")
+
 from utils_CSQA import *
 os.environ['CUDA_VISIBLE_DEVICES'] = "3"
 
@@ -81,7 +81,7 @@ def main(args):
             row1["output"] = output
             row1 = [row1]
             dataSave.append(row1)
-    save_list_to_json(dataSave,"/data/dell/lty/UCE/test/test_PIK.json")
+    save_list_to_json(dataSave,"test_PIK.json")
     with open(savePath, "wb") as f:
         pickle.dump(dataSave, f)
 
@@ -89,10 +89,10 @@ def main(args):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="/data/dell/lty/ckp/llama_7b_ComQA_Cot_Base/llama_7b_ComQA_Cot_Base_epoch3",
+    parser.add_argument("--model_name", type=str
                         help="the name of model")
-    parser.add_argument("--dataPath", type=str, default="/data/dell/lty/UCE/test/test.json")
-    parser.add_argument("--savePath", type=str, default="/data/dell/lty/UCE/test/test_PIK.pkl", help =" save as pkl ")
+    parser.add_argument("--dataPath", type=str)
+    parser.add_argument("--savePath", type=str, help =" save as pkl ")
     parser.add_argument("--sample_num", type=int, default=30, help = "for a question, the number of answer.")
     parser.add_argument("--T", type=int, default=1, help="temperature")
     parser.add_argument("--size", type=int, default=4, help="number of data inference in the same batch")
