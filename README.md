@@ -125,7 +125,8 @@ python inference_LECO.py \
     --save_path  save_data_path 
 ```
 **7. Multi-Step:** It also uses prompts to guide the model to output the process confidence and takes the average as the final result. [[Can llms express their uncertainty? an empirical evaluation of confidence elicitation in llms]](https://arxiv.org/abs/2306.13063)
-```
+
+``` bash
 cd /methods/Multistep
 python inference_MultiStep.py \
     --model_path the_base_model_path \
