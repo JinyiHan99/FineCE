@@ -27,7 +27,7 @@ we provide the confidence estimation training data on the GSM8K, CSQA and Trival
 
 If you want to construct the confidence estimation training data using other base models.  The pipelines is following:
 
-- Format the model answer: We provide the formatted data on three dataset, and you can find them on the fold `/data/FineCE/XX/formatData`.  Then you can employ instruction training using <instruction, question, formatted_response> to obtain the formatted model checkpoints. For ift, we recommend you to use the  [Llama-factory](l)
+- Format the model answer: We provide the formatted data on three dataset, and you can find them on the fold `/data/FineCE/XX/formatData`.  Then you can employ instruction training using <instruction, question, formatted_response> to obtain the formatted model checkpoints. For ift, we recommend you to use the  [Llama-factory](https://github.com/hiyouga/LLaMA-Factory)
 - Construct the training data: You can construt the  confidence estimation training data on other tasks or using other base models using:
 
 ``` bash
@@ -42,7 +42,7 @@ python pipeline.py \
   --size 4
 ```
 # Training
-
+After construct the training data, we employ instruction-tuning based on [Llama-factory](https://github.com/hiyouga/LLaMA-Factory)
 
 # Evaluation
 ``` bash
@@ -115,8 +115,7 @@ python inference_chain.py \
 
 ```
 
-**6. PS:** this method is only used for MCQA task*
-**7. LECO:** It also proposes leveraging logits to estimate step confidence. Besides, it further designs three logit-based scores that comprehensively evaluate confidence from both intra- and inter-step perspectives. [ [Learning From Correctness Without Prompting Makes LLM Efficient Reasoner]](https://arxiv.org/abs/2403.19094)
+**6. LECO:** It also proposes leveraging logits to estimate step confidence. Besides, it further designs three logit-based scores that comprehensively evaluate confidence from both intra- and inter-step perspectives. [ [Learning From Correctness Without Prompting Makes LLM Efficient Reasoner]](https://arxiv.org/abs/2403.19094)
 
 ``` bash 
 cd /methods/LECO
@@ -125,20 +124,17 @@ python inference_LECO.py \
     --data_path  /data/test/CSQA_test.json \
     --save_path  save_data_path 
 ```
-**8. Multi-Step:** It also uses prompts to guide the model to output the process confidence and takes the average as the final result. [[Can llms express their uncertainty? an empirical evaluation of confidence elicitation in llms]](https://arxiv.org/abs/2306.13063)
-
-  * Run:
-    ```
-    cd /methods/Multistep
-    python inference_MultiStep.py \
-        --model_path the_base_model_path \
-        --data_path  /data/test/CSQA_test.json \
-        --save_path  save_data_path \
-        --sample_num 10 \
-        --T 1 \
-        --size 16
-    ```
-
+**7. Multi-Step:** It also uses prompts to guide the model to output the process confidence and takes the average as the final result. [[Can llms express their uncertainty? an empirical evaluation of confidence elicitation in llms]](https://arxiv.org/abs/2306.13063)
+```
+cd /methods/Multistep
+python inference_MultiStep.py \
+    --model_path the_base_model_path \
+    --data_path  /data/test/CSQA_test.json \
+    --save_path  save_data_path \
+    --sample_num 10 \
+    --T 1 \
+    --size 16
+```
 # Main Results
 our method consistently outperforms all baselines in terms of ECE and AUROC, and shows excellent calibration capability across all datasets.
 
