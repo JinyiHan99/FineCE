@@ -8,7 +8,7 @@
 </div>
 
 <div align=center>
-    <img src="./image/finece_intro.jpg" alt="intro" width = 600/>
+    <img src="./image/finece_intro.jpg" alt="intro" width = 700/>
 </div>
 FineCE provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. 
 
@@ -18,7 +18,7 @@ FineCE provides the accurate and fine-grained confidence estimates throughout th
 - We develop three basic strategies to identify optimal estimation positions within the generation process.
 
 <div align=center>
-    <img src="./image/method.jpg" alt="intro" width = 600/>
+    <img src="./image/method.jpg" alt="intro" width = 700/>
 </div>
 
 
