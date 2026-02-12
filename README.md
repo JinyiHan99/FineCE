@@ -1,4 +1,4 @@
-# FineCE: Fine-Grained Confidence Estimation for Large Language Model Generation
+# Knowing How Certain It Is: Confidence Estimation Throughout LLM Generation
 
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b5212f.svg?logo=arxiv)](./image/FineCE.pdf)
 [![HuggingFace](https://img.shields.io/badge/Data&Model-HuggingFace-ffd21e.svg?logo=huggingface)]()
@@ -7,7 +7,7 @@
 
 FineCE is a novel framework that provides accurate and fine-grained confidence estimates throughout the generation process of large language models (LLMs). It is a universal method that offers confidence estimates for any given text sequence, addressing the critical need for reliable uncertainty quantification in LLM outputs.
 
-![FineCE Introduction](./image/FineCE_intro.jpg)
+![FineCE Introduction](./image/finece_intro.jpg)
 
 ### Key Contributions
 
@@ -64,13 +64,7 @@ python pipeline.py \
   --size 4
 ```
 
-## Training
 
-After constructing the training data, fine-tune the model using instruction-tuning with [Llama-factory](https://github.com/hiyouga/LLaMA-Factory):
-
-```bash
-# Follow the Llama-factory training instructions
-```
 
 ## Evaluation
 
