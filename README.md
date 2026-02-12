@@ -1,37 +1,59 @@
-
-<h1 align="center">Mind the Generation Process: Fine-Grained Confidence Estimation During LLM Generation</h1>
-
-<div align="center"> 
+# FineCE: Fine-Grained Confidence Estimation for Large Language Model Generation
 
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b5212f.svg?logo=arxiv)](./image/FineCE.pdf)
-[![HuggingFace](https://img.shields.io/badge/Data&Model-HuggingFace-ffd21e.svg?logo=huggingface)]() 
-</div>
+[![HuggingFace](https://img.shields.io/badge/Data&Model-HuggingFace-ffd21e.svg?logo=huggingface)]()
 
-<div align=center>
-    <img src="./image/finece_intro.jpg" alt="intro" width = 700/>
-</div>
-FineCE provides the accurate and fine-grained confidence estimates throughout the generation process of an LLM. It is also a universal method that offers confidence estimates for any given text sequence. 
+## Overview
 
+FineCE is a novel framework that provides accurate and fine-grained confidence estimates throughout the generation process of large language models (LLMs). It is a universal method that offers confidence estimates for any given text sequence, addressing the critical need for reliable uncertainty quantification in LLM outputs.
 
-- We establish a complete pipeline for constructing high-quality confidence estimation data.
-- We propose BCI, a novel backward confidence integration strategy that enhances current confidence estimation by leveraging future text. 
-- We develop three basic strategies to identify optimal estimation positions within the generation process.
+![FineCE Introduction](./image/FineCE_intro.jpg)
 
-<div align=center>
-    <img src="./image/method.jpg" alt="intro" width = 700/>
-</div>
+### Key Contributions
 
+- **High-Quality Data Pipeline**: Established a complete pipeline for constructing high-quality confidence estimation training data
+- **Backward Confidence Integration (BCI)**: Proposed a novel backward confidence integration strategy that enhances estimation accuracy by leveraging future text context
+- **Optimal Position Identification**: Developed three basic strategies to identify optimal estimation positions within the generation process
+## Methodology
 
-# Data Preparation
-we provide the confidence estimation training data on the GSM8K, CSQA and TrivalQA dataset, you can find them on the fold `/data/FineCE/XX/confData`. We provide two files on each dataset using two different base models. For example, The file `LlaMA-7B.json` is from LLama2-7b.
+Our framework consists of three main components:
 
-If you want to construct the confidence estimation training data using other base models.  The pipelines is following:
+1. **Data Construction Pipeline**: Generates high-quality confidence estimation training data
+2. **Backward Confidence Integration (BCI)**: Enhances estimation accuracy by leveraging future text context
+3. **Optimal Position Identification**: Determines the best locations for confidence estimation during generation
 
-- Format the model answer: We provide the formatted data on three dataset, and you can find them on the fold `/data/FineCE/XX/formatData`.  Then you can employ instruction training using <instruction, question, formatted_response> to obtain the formatted model checkpoints. For ift, we recommend you to use the  [Llama-factory](https://github.com/hiyouga/LLaMA-Factory)
-- Construct the training data: You can construt the  confidence estimation training data on other tasks or using other base models using:
+![Methodology](./image/method.jpg)
 
-``` bash
-cd /methods/FinCE/construct_data
+## Installation
+
+```bash
+# Clone the repository
+git clone git@github.com:JinyiHan99/FineCE.git
+cd FineCE
+
+# Install required packages
+pip install -r requirements.txt
+```
+
+## Data Preparation
+
+We provide pre-constructed confidence estimation training data for three benchmark datasets:
+- GSM8K (math reasoning)
+- CSQA (commonsense question answering)
+- TriviaQA (fact-based question answering)
+
+You can find the pre-formatted data in the `/data/FineCE/[DATASET]/confData/` directory. We provide data generated from two different base models (e.g., `LlaMA-7B.json`).
+
+### Constructing Custom Training Data
+
+To construct confidence estimation training data using other base models:
+
+1. **Format Model Answers**: Use the formatted data in `/data/FineCE/[DATASET]/formatData/` and fine-tune your model using instruction training with `<instruction, question, formatted_response>` pairs. We recommend using [Llama-factory](https://github.com/hiyouga/LLaMA-Factory).
+
+2. **Generate Training Data**: Run the data construction pipeline:
+
+```bash
+cd /methods/FineCE/construct_data
 python pipeline.py \
   --model_path formatted_model_path \
   --data_path raw_data_path \
@@ -41,108 +63,154 @@ python pipeline.py \
   --T 1 \
   --size 4
 ```
-# Training
-After construct the training data, we employ instruction-tuning based on [Llama-factory](https://github.com/hiyouga/LLaMA-Factory)
 
-# Evaluation
-``` bash
+## Training
+
+After constructing the training data, fine-tune the model using instruction-tuning with [Llama-factory](https://github.com/hiyouga/LLaMA-Factory):
+
+```bash
+# Follow the Llama-factory training instructions
+```
+
+## Evaluation
+
+To evaluate the confidence estimation performance:
+
+```bash
 cd /methods/FineCE/infer
 python infer_answer_and_conf.py \
     --model_path model_ckp \
     --data_path test_data_path \
-    --response_mode conf \
+    --response_mode conf
 ```
 
+## Baselines
 
-# Baselines Implementations
+We provide implementations of several popular confidence estimation methods for comparison:
 
-We also provide the code of several popular confidence estimation methods. you can find on `/methods`
+### 1. P(IK): Probability of Knowing
 
-**1. P(IK):** It trains a logistic regression with the additional value ``head" added to the model to output the confidence estimated. [[Language Models (Mostly) Know What They Know]](https://arxiv.org/abs/2207.05221)
+Trains a logistic regression head added to the model to output confidence estimates.
 
-``` bash
+**Reference**: [Language Models (Mostly) Know What They Know](https://arxiv.org/abs/2207.05221)
+
+```bash
 cd /methods/PIK
-python construct_data_PIK.py
---model_path the_base_model_path
---data_path  /data/test/CSQA_test.jsonP
---save_path  save_data_path
---sample_num 30
---T 1
---size 4 # the prompt size when using VLLM to infer
+python construct_data_PIK.py \
+  --model_path the_base_model_path \
+  --data_path /data/test/CSQA_test.json \
+  --save_path save_data_path \
+  --sample_num 30 \
+  --T 1 \
+  --size 4
 ```
-**2. First-Prob**: It uses the logits of the first token of LLM's generated answer as the confidence estimate.  [[Whose Opinions Do Language Models Reflect?]](https://arxiv.org/abs/2303.17548)
 
+### 2. First-Prob
 
-``` bash
+Uses the logits of the first token of the LLM's generated answer as the confidence estimate.
+
+**Reference**: [Whose Opinions Do Language Models Reflect?](https://arxiv.org/abs/2303.17548)
+
+```bash
 cd /methods/First-prob
 python inference_FirProb.py \
     --model_path the_base_model_path \
-    --data_path  /data/test/CSQA_test.json \
-    --save_path  save_data_path 
+    --data_path /data/test/CSQA_test.json \
+    --save_path save_data_path
 ```
-**3. SuC:**  It first clusters the sub-questions, and use the same confidence estimate for questions in the same cluster. [[Teaching models to express their uncertainty in words]](https://arxiv.org/abs/2205.14334)
-``` bash
+
+### 3. SuC: Sub-question Clustering
+
+Clusters sub-questions and assigns the same confidence estimate to questions in the same cluster.
+
+**Reference**: [Teaching models to express their uncertainty in words](https://arxiv.org/abs/2205.14334)
+
+```bash
 cd /methods/SuC
 python construct_data_SuC.py \
     --model_path the_base_model_path \
-    --data_path  /data/test/CSQA_test.json \
-    --save_path  save_data_path \
+    --data_path /data/test/CSQA_test.json \
+    --save_path save_data_path \
     --sample_num 10 \
     --T 1 \
     --size 16
 ```
-**4. Verb:**  It is a prompt-based method. It designs the prompts to guide the model to output its confidence score alongside with the generated answer. [[Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback]](https://arxiv.org/abs/2305.14975)
-  
-``` bash
+
+### 4. Verb: Verbalized Confidence
+
+A prompt-based method that guides the model to output confidence scores alongside generated answers.
+
+**Reference**: [Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback](https://arxiv.org/abs/2305.14975)
+
+```bash
 cd /methods/Verb
 python inference_Verb.py \
     --model_path the_base_model_path \
-    --data_path  /data/test/CSQA_test.json \
-    --save_path  save_data_path \
+    --data_path /data/test/CSQA_test.json \
+    --save_path save_data_path \
     --sample_num 10 \
     --T 1 \
     --size 16
 ```
-**5. Fidelity:** For MCQA, it decomposes the LLM confidence into the \emph{Uncertainty} about the question and the \emph{Fidelity} to the answer generated by LLMs. [[Calibrating the Confidence of Large Language Models by Eliciting Fidelity]](https://arxiv.org/abs/2404.02655) 
 
-Data example: ` /data/Fidelity/chains-confidence.json and /data/Fidelity/raw-10-responses.json`
-``` bash
+### 5. Fidelity
+
+Decomposes LLM confidence into uncertainty about the question and fidelity to the generated answer (for MCQA tasks).
+
+**Reference**: [Calibrating the Confidence of Large Language Models by Eliciting Fidelity](https://arxiv.org/abs/2404.02655)
+
+```bash
 cd /methods/Fidelity
 python inference_chain.py \
     --model_path the_base_model_path \
-    --data_path  /data/Fidelity/chains-confidence.json \
-    --save_path  /data/Fidelity/raw-10-responses.json
-
+    --data_path /data/Fidelity/chains-confidence.json \
+    --save_path /data/Fidelity/raw-10-responses.json
 ```
 
-**6. LECO:** It also proposes leveraging logits to estimate step confidence. Besides, it further designs three logit-based scores that comprehensively evaluate confidence from both intra- and inter-step perspectives. [ [Learning From Correctness Without Prompting Makes LLM Efficient Reasoner]](https://arxiv.org/abs/2403.19094)
+### 6. LECO: Logit-based Estimation of Confidence
 
-``` bash 
+Uses logits to estimate step confidence and designs three logit-based scores evaluating confidence from both intra- and inter-step perspectives.
+
+**Reference**: [Learning From Correctness Without Prompting Makes LLM Efficient Reasoner](https://arxiv.org/abs/2403.19094)
+
+```bash
 cd /methods/LECO
 python inference_LECO.py \
     --model_path the_base_model_path \
-    --data_path  /data/test/CSQA_test.json \
-    --save_path  save_data_path 
+    --data_path /data/test/CSQA_test.json \
+    --save_path save_data_path
 ```
-**7. Multi-Step:** It also uses prompts to guide the model to output the process confidence and takes the average as the final result. [[Can llms express their uncertainty? an empirical evaluation of confidence elicitation in llms]](https://arxiv.org/abs/2306.13063)
 
-``` bash
+### 7. Multi-Step
+
+Uses prompts to guide the model to output process confidence and takes the average as the final result.
+
+**Reference**: [Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs](https://arxiv.org/abs/2306.13063)
+
+```bash
 cd /methods/Multistep
 python inference_MultiStep.py \
-    --model_path the_base_model_path \
-    --data_path  /data/test/CSQA_test.json \
-    --save_path  save_data_path \
+    --model_path the_baseasyeeae_model_path \
+    --data_path /data/test/CSQA_test.json \
+    --save_path save_data_path \
     --sample_num 10 \
     --T 1 \
     --size 16
 ```
-# Main Results
-our method consistently outperforms all baselines in terms of ECE and AUROC, and shows excellent calibration capability across all datasets.
 
-<div align=center>
-    <img src="./image/main_results2.jpg" alt="" width = 700/>
-</div>
+## Results
 
-<div align = center>
-    <img src="./image/main_results1.jpg" alt="" width = 700/>
-</div>
+FineCE consistently outperforms all baselines in terms of Expected Calibration Error (ECE) and Area Under the ROC Curve (AUROC), demonstrating excellent calibration capability across all datasets.
+
+### Main Results
+
+![Main Results 2](./image/main_results2.jpg)
+![Main Results 1](./image/main_results1.jpg)
+
+
+## 🙏 Acknowledgments
+
+We would like to express our gratitude to the [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) team for providing an excellent framework for LLM instruction-tuning, which greatly facilitated the development of FineCE.
+
+
+
