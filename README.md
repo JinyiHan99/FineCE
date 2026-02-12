@@ -197,9 +197,9 @@ python inference_MultiStep.py \
 FineCE consistently outperforms all baselines in terms of Expected Calibration Error (ECE) and Area Under the ROC Curve (AUROC), demonstrating excellent calibration capability across all datasets.
 
 ### Main Results
-
-![Main Results 2](./image/main_results2.jpg)
 ![Main Results 1](./image/main_results1.jpg)
+![Main Results 2](./image/main_results2.jpg)
+
 
 
 ## 🙏 Acknowledgments
