@@ -10,7 +10,7 @@ FineCE is a universal method that works with various LLM architectures and gener
 
 <!-- ![FineCE Introduction](./image/finece_intro.jpg) -->
 <div align="center">
-    <img src="../image/finece_intro.jpg" alt="FineCE Introduction" width="600"/>
+    <img src="./image/finece_intro.jpg" alt="FineCE Introduction" width="600"/>
 </div>
 
 ## 🌟 Key Contributions
