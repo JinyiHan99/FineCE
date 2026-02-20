@@ -1,10 +1,6 @@
 # 🎯 Knowing How Certain It Is: Confidence Estimation Throughout LLM Generation
 
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b5212f.svg?logo=arxiv)](./image/FineCE.pdf)
-[![HuggingFace](https://img.shields.io/badge/Data&Model-HuggingFace-ffd21e.svg?logo=huggingface)]()
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python)]()
-[![LLM](https://img.shields.io/badge/LLM-Llama%20Series-orange.svg?logo=ai)]()
 
 ## 📖 Overview
 
@@ -12,7 +8,10 @@ FineCE is a **novel framework for fine-grained confidence estimation throughout 
 
 FineCE is a universal method that works with various LLM architectures and generation tasks, providing confidence estimates at both the token level and sequence level.
 
-![FineCE Introduction](./image/finece_intro.jpg)
+<!-- ![FineCE Introduction](./image/finece_intro.jpg) -->
+<div align="center">
+    <img src="../image/finece_intro.jpg" alt="FineCE Introduction" width="600"/>
+</div>
 
 ## 🌟 Key Contributions
 
